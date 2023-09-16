@@ -20,8 +20,8 @@ app.use("/books/addBook", bookRouter);
 app.use("/books/updateBookName", bookRouter);
 app.use("/books/removeBook", bookRouter);
 
-app.get("/ping", (req, res) => {
-    res.json({ massage: "ping" });
+app.get("/", (req, res) => {
+    res.send("<h1>Test The Rest Api using postman</h2>");
 });
 
 app.listen(port, () => {
