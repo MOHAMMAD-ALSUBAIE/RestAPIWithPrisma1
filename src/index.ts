@@ -21,7 +21,9 @@ app.use("/books/updateBookName", bookRouter);
 app.use("/books/removeBook", bookRouter);
 
 app.get("/", (req, res) => {
-    res.send("<h1>Test The Rest Api using postman</h2>");
+    res.setHeader("Content-type", "text/html")
+        .set("Content-Security-Policy", "default-src 'self'")
+        .send("<h1>Test The Rest Api using postman</h2>");
 });
 
 app.listen(port, () => {
