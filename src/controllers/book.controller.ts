@@ -43,7 +43,7 @@ export const createBook = async (req, res) => {
         }
         const response = await createBookLogics(title.trim(), authorID.trim());
 
-        res.status(201).json({ Date: response });
+        res.status(201).json({ data: response });
     } catch (e) {
         console.log(e);
     }
@@ -86,7 +86,10 @@ export const deleteBook = async (req, res) => {
             ? res.status(200).json({
                   data: { booksRemoved: booksResponse },
               })
-            : res.status(404).json({ status:"Failed",message: `Book with id ${id} not exist` });
+            : res.status(404).json({
+                  status: "Failed",
+                  message: `Book with id " ${id} " not exist`,
+              });
     } catch (e) {
         console.log(e);
     }

@@ -51,7 +51,7 @@ export const createAuthor = async (req, res) => {
             bookTitle?.trim()
         );
 
-        res.status(201).json({ Date: response });
+        res.status(201).json({ data: response });
     } catch (e) {
         console.log(e);
     }
