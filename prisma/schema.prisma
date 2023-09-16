@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model Author {
+  id    String  @id @default(uuid())
+  name  String
+  Books Books[]// that the books module can has row that refrence to many rows in Author module
+}
+
+model Books {
+  id    String @id @default(uuid())
+  title String
+
+  author   Author @relation(fields: [authorId], references: [id])
+  authorId String
+
+  @@index([authorId])
+}
