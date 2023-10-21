@@ -5,12 +5,10 @@ const bookClient = new PrismaClient().books;
 
 export const getAllBooks = async (req, res) => {
     try {
-        const authors = await bookClient.findMany({
-            include: {
-                author: true,
-            },
+        const books = await bookClient.findMany({
+            take: 10,
         });
-        res.status(200).json({ data: authors });
+        res.status(200).json({ data: books });
     } catch (e) {
         console.log(e);
     }
@@ -34,20 +32,20 @@ export const getBookByID = async (req, res) => {
     }
 };
 //createAuthor
-export const createBook = async (req, res) => {
-    try {
-        const { title = null, authorID = null } = req.body;
-        const result = badRequest(title, authorID, res); //let id argument to true because new user not have id
-        if (result) {
-            return;
-        }
-        const response = await createBookLogics(title.trim(), authorID.trim());
+// export const createBook = async (req, res) => {
+//     try {
+//         const { title = null, authorID = null } = req.body;
+//         const result = badRequest(title, authorID, res); //let id argument to true because new user not have id
+//         if (result) {
+//             return;
+//         }
+//         const response = await createBookLogics(title.trim(), authorID.trim());
 
-        res.status(201).json({ data: response });
-    } catch (e) {
-        console.log(e);
-    }
-};
+//         res.status(201).json({ data: response });
+//     } catch (e) {
+//         console.log(e);
+//     }
+// };
 //updateAuthor
 export const updateBook = async (req, res) => {
     try {
@@ -59,7 +57,7 @@ export const updateBook = async (req, res) => {
         const response = await bookClient.update({
             where: { id: id },
             data: {
-                title: title,
+                BookTitle: title,
             },
         });
         res.status(200).json({
@@ -95,14 +93,14 @@ export const deleteBook = async (req, res) => {
     }
 };
 
-async function createBookLogics(title: string, id: string) {
-    return await bookClient.create({
-        data: {
-            title: title,
-            authorId: id,
-        },
-    });
-}
+// async function createBookLogics(title: string, id: string) {
+//     return await bookClient.create({
+//         data: {
+//             I: title,
+//             authorId: id,
+//         },
+//     });
+// }
 
 function badRequest(title, id, res) {
     if (!title || !id) {
